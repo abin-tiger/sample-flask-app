@@ -4,11 +4,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-flask-app-prometheus-flask-app
-  labels:
-    app: prometheus-flask-app
-    chart: sbd-prometheus-flask-app-1.1
-    release: prometheus-flask-app
-    heritage: Helm
 spec:
   type: ClusterIP
   ports:
@@ -25,13 +20,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-flask-app-prometheus-flask-app
-  labels:
-    app: prometheus-flask-app
-    chart: sbd-prometheus-flask-app-1.1
-    release: prometheus-flask-app
-    heritage: Helm
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: prometheus-flask-app
@@ -44,7 +34,7 @@ spec:
     spec:
       containers:
         - name: sbd-prometheus-flask-app
-          image: "prometheus-flask-app:latest"
+          image: ghcr.io/abin-tiger/sample-flask-app:master
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
