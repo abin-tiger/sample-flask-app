@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r env/pip/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir ${METRICS_FOLDER}
 ENV METRICS_PORT=9200
