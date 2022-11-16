@@ -1,0 +1,21 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: flask-app
+    static_configs:
+      - targets:
+        - 'localhost:5000'
+        - 'localhost:9200'
+        labels:                           
+          app: 'sbd-project-flask-app'     # Rename it with your project app name
+          # Simulating labels authomatically added in kubernetes
+          pod: 'xyz'
+          instance: 'xyz'
+          container: 'xyz'

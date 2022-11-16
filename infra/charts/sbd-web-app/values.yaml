@@ -1,0 +1,41 @@
+# Default values for chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: prometheus-flask-app
+image:
+  repository: prometheus-flask-app
+  tag: latest
+  pullPolicy: Always
+deployment:
+  replicaCount: 2
+  # nodeSelector: {}
+  resources:
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'. 
+    requests:
+      cpu: 20m
+      memory: 100Mi
+service:
+  name: sbd-prometheus-flask-app
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 5000
+ingress:
+  enabled: false
+  host: sbd-prometheus-flask-app.sandbox.sbd-caspian.com
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+podMonitor:
+  # Specifies whether PodMonitor should be created
+  create: false
+  # The Prometheus scrape interval
+  interval: 15s
+  # Port to scrape
+  port: metrics
+  # Metrics endpoint path
+  path: /metrics
+  # metric port number
+  metricsPort: 9200
